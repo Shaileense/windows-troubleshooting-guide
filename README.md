@@ -1,9 +1,17 @@
-# Windows Troubleshooting Guide
+# windows-troubleshooting-guide
 
 A collection of common Windows troubleshooting steps, fixes, and IT support documentation.
 
-## Topics Covered
+## Table of Contents
+- [Topics Covered](#topics-covered)
+- [Common Command Prompt Commands](#common-command-prompt-commands)
+  - [Check IP Configuration](#check-ip-configuration)
+  - [Ping Test](#ping-test)
+  - [System File Checker](#system-file-checker)
+- [Performance Issues](#performance-issues)
+  - [High CPU Usage: WMI Provider Host (WmiPrvSE.exe)](#high-cpu-usage-wmi-provider-host-wmiprvseexe)
 
+## Topics Covered
 - Slow PC performance
 - WiFi connectivity issues
 - Printer troubleshooting
@@ -30,8 +38,6 @@ ping google.com
 ```bash
 sfc /scannow
 ```
-ipconfig# windows-troubleshooting-guide
-Common Windows troubleshooting steps and IT support documentation.
 
 ## Performance Issues
 
