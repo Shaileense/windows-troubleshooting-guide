@@ -10,6 +10,7 @@ A collection of common Windows troubleshooting steps, fixes, and IT support docu
   - [System File Checker](#system-file-checker)
 - [Performance Issues](#performance-issues)
   - [High CPU Usage: WMI Provider Host (WmiPrvSE.exe)](#high-cpu-usage-wmi-provider-host-wmiprvseexe)
+  - [Websites Won't Load but Ping Works (DNS Resolution Failure)](#websites-wont-load-but-ping-works-dns-resolution-failure)
 
 ## Topics Covered
 - Slow PC performance
@@ -55,3 +56,27 @@ sfc /scannow
 - If a specific app is causing it, update or reinstall that app
 - Run WMI repair: `winmgmt /resetrepository` (requires admin; reboot after)
 - For persistent issues: use WMI Diagnosis Utility (Microsoft) to rebuild the repository
+
+### Websites Won't Load but Ping Works (DNS Resolution Failure)
+
+**Symptoms:** Browser shows "This site can't be reached" or "DNS_PROBE_FINISHED_NXDOMAIN," but `ping 8.8.8.8` succeeds — meaning the connection itself is fine, only name resolution is broken.
+
+**Steps to resolve:**
+1. Flush the local DNS cache:
+```bash
+ipconfig /flushdns
+```
+2. Confirm DNS servers are set correctly:
+```bash
+ipconfig /all
+```
+Look for the "DNS Servers" line under your active adapter.
+3. Try a public DNS server (Google 8.8.8.8 / 8.8.4.4 or Cloudflare 1.1.1.1) via Network Adapter settings → IPv4 Properties.
+4. Test resolution directly with `nslookup github.com` — if this fails but `ping 8.8.8.8` works, it confirms a pure DNS issue (not a general network outage).
+5. Restart the DNS Client service:
+```bash
+net stop dnscache
+net start dnscache
+```
+
+**Root cause:** Usually a stale DNS cache, a misconfigured or unreachable DNS server, or a VPN/security software conflict.
