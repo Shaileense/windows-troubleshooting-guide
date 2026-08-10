@@ -11,6 +11,8 @@ A collection of common Windows troubleshooting steps, fixes, and IT support docu
 - [Performance Issues](#performance-issues)
   - [High CPU Usage: WMI Provider Host (WmiPrvSE.exe)](#high-cpu-usage-wmi-provider-host-wmiprvseexe)
   - [Websites Won't Load but Ping Works (DNS Resolution Failure)](#websites-wont-load-but-ping-works-dns-resolution-failure)
+- [Networking Issues](#networking-issues)
+  -  [Wi-Fi Keeps Dropping or Running Slow](#wi-fi-keeps-dropping-or-running-slow)
 
 ## Topics Covered
 - Slow PC performance
@@ -80,3 +82,28 @@ net start dnscache
 ```
 
 **Root cause:** Usually a stale DNS cache, a misconfigured or unreachable DNS server, or a VPN/security software conflict.
+
+## Networking Issues
+
+### Wi-Fi Keeps Dropping or Running Slow
+
+**Symptoms:** Wi-Fi disconnects intermittently, reconnects on its own, or throughput is far below the expected speed, even close to the router.
+
+**Steps to diagnose and fix:**
+
+**Check adapter power management** (a common silent culprit): Device Manager, then Network adapters, then your Wi-Fi adapter, then Properties, then the Power Management tab. Uncheck "Allow the computer to turn off this device to save power."
+
+**Update or roll back the Wi-Fi driver:** Device Manager, right-click the adapter, Update driver. If problems started after a recent update, try "Roll Back Driver" instead.
+
+**Flush DNS and renew the IP lease** (rules out a DNS/DHCP-side cause):
+```bash
+ipconfig /flushdns
+ipconfig /release
+ipconfig /renew
+```
+
+**Run the built-in network troubleshooter:** Settings, then Network & Internet, then Network troubleshooter.
+
+**Check for channel congestion** if near other networks; switching the router to a less crowded channel (5GHz vs 2.4GHz) can help if adjustable.
+
+**Root cause:** Most often adapter power-saving settings or an outdated driver; less commonly a DNS/DHCP issue or Wi-Fi channel interference.
