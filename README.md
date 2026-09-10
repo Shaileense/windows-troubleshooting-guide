@@ -107,3 +107,29 @@ ipconfig /renew
 **Check for channel congestion** if near other networks; switching the router to a less crowded channel (5GHz vs 2.4GHz) can help if adjustable.
 
 **Root cause:** Most often adapter power-saving settings or an outdated driver; less commonly a DNS/DHCP issue or Wi-Fi channel interference.
+
+
+## Printer Issues
+
+### Printer Shows Offline or Won't Print
+
+**Symptoms:** Print jobs stay stuck in the queue, printer shows "Offline" in Windows even though it's powered on, or nothing happens when printing.
+
+**Steps to diagnose and fix:**
+
+**Clear the print queue and restart the Print Spooler service:** Open Services (`services.msc`), find "Print Spooler," then Restart. Or via Command Prompt (as admin):
+```bash
+net stop spooler
+del /Q /F %systemroot%\System32\spool\PRINTERS\*.*
+net start spooler
+```
+
+**Uncheck "Use Printer Offline" mode:** Settings, then Bluetooth & devices, then Printers & scanners, select the printer, and check its status.
+
+**Confirm the printer is set as default and using the correct port:** Printer Properties, then the Ports tab.
+
+**Update or reinstall the printer driver** from the manufacturer's site if the above doesn't resolve it.
+
+**For network printers, verify connectivity:** confirm it still has a valid IP and is reachable (`ping <printer-ip>`).
+
+**Root cause:** Most often a stuck print spooler or a stale "offline" state; less commonly a driver or network connectivity issue.
